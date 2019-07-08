@@ -1,0 +1,9 @@
+/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/build/CMakeFiles/rebuild_cache.dir
+/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/build/CMakeFiles/edit_cache.dir
+/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/build/prng/CMakeFiles/rebuild_cache.dir
+/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/build/prng/CMakeFiles/xorshiro.dir
+/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/build/prng/CMakeFiles/prng.dir
+/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/build/prng/CMakeFiles/xorshiroGen.dir
+/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/build/prng/CMakeFiles/main.dir
+/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/build/prng/CMakeFiles/simulation.dir
+/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/build/prng/CMakeFiles/edit_cache.dir

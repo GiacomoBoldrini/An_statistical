@@ -1,0 +1,2 @@
+/bin/ar qc libprng.a  CMakeFiles/prng.dir/prng.cpp.o
+/bin/ranlib libprng.a

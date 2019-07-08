@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/prng/prng.h
+
+/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/prng/xorshiro.cpp
+xorshiro.h
+/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/prng/xorshiro.h
+prng.h
+/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/prng/prng.h
+cmath
+-
+climits
+-
+
+/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/prng/xorshiro.h
+prng.h
+/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/prng/prng.h
+
