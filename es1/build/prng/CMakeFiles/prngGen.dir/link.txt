@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libprngGen.a  CMakeFiles/prngGen.dir/prngGen.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libprngGen.a

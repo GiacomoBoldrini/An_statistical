@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es1/prng/prng.cpp
+prng.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es1/prng/prng.h
+climits
+-
+stdio.h
+-
+stdlib.h
+-
+time.h
+-
+
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es1/prng/prng.h
+

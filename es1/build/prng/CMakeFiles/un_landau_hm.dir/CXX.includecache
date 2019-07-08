@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es1/prng/prng.h
+
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es1/prng/prngGen.h
+prng.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es1/prng/prng.h
+
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es1/prng/un_landau_hm.cpp
+iostream
+-
+prng.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es1/prng/prng.h
+prngGen.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es1/prng/prngGen.h
+xorshiro.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es1/prng/xorshiro.h
+xorshiroGen.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es1/prng/xorshiroGen.h
+
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es1/prng/xorshiro.h
+prng.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es1/prng/prng.h
+
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es1/prng/xorshiroGen.h
+prng.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es1/prng/prng.h
+xorshiro.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es1/prng/xorshiro.h
+

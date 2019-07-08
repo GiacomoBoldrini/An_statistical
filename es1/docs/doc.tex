@@ -1,0 +1,120 @@
+\documentclass[10pt,a4paper]{book}
+\usepackage[utf8x]{inputenc}
+\usepackage{ucs}
+\usepackage[italian,english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\author{Wahid}
+\title{Machine Learning}
+
+\begin{document}
+	
+\chapter{Generazione numeri casuali sotto BW}
+Si può fare una differenziazione iniziale:
+\begin{itemize}
+	\item Numeri casuali: truly random numbers
+	\item Numri pseudocasuali: pseudo random numbers
+\end{itemize}
+Una sequenza di numeri casuali è+ impredicible e perciò irriproducibile. Può essere generata da un processo fisico random, e.g. decadimento radioattivo, tempi di attivo di raggi cosmici.\\
+Una sequenza di numeri pseudocasuali è ottenuta con una ben precisa formula matematica che fornisca una sequenza indistinguibile da una di numeri casuali.\\
+Un tale generatore deve esserer:
+\begin{itemize}
+	\item Soggetto a test di randomness
+	\item Avere un periodio (tipicamente $500 \cdot 10^6$ per rappresentazione a 32 bits)
+\end{itemize}
+I generatori pseudo-random attualmente più usati sono detti \textbf{congruenti moltiplicativi} e sono basati sulla formula:
+$$n_i = a \cdot n_{i-1} (mod m)$$
+Una sua variante, chiamata \textbf{congruenti misti} è basata sulla seguente formula:
+$$n_i = a \cdot n_{i-1} + b (mod m)$$
+
+In genere $m = 2^t$ con t numero di bits della rappresentazione di un intero sulla macchina considerata. \\
+Il periodo è al massimo $m/4$.\\
+
+\subsubsection{Metodo lineare congruente}
+Questo metodo è basato sulla seguente formula ricorsiva:
+$$n_{i+1} = (a\cdot n_i + c)mod(m)$$
+Dove si sceglie un valore iniziale $n_0$ chiamato seed, e a,c sono scelti in maniera speciale. \\
+In particolare $a,c > 0$ e $m > n_0,a,c$\\
+\paragraph{Scelta del modulo m}
+m deve essere il più grande possibile siccome il periodo non può eserer più grande di m.\\
+Una sceglie solitamente m in modo da essere il più vicino possibile al più grande intero che si può rappresentare.\\
+\paragraph{Scelta dei moltiplicatori, a}
+E' stato provato da Greenberger che la sequenza avrà periodo m se e solo se: 
+\begin{itemize}
+	\item c è relativamente primo a m
+	\item a-1 è un multiplo di p, per ogni primo p che divide m
+	\item a-1 è un multiplo di 4 se m è un multiplo di 4
+\end{itemize}
+\subsubsection{Spiegazione del codice}
+Prima di tutto implemento l'algoritmo per generare numeri casuali.\\
+Scelgo di lavorare con modulo in 64bit. Decido di utilizzare come variabile un tipo \verb|long long int|, in questo modo nell'algoritmo ricorsivo posso porre il modulo a 0. Infatti volendo lavorare con modulo a 64bit, e siccome la variabile long long int occupa 64bit, non è necessaria la parte di calcolo del modulo in quanto è presente nella variabile stessa.
+Definisco quindi la classe per generare numeri pseudocasuali.
+\paragraph{Header pnrg.h}
+\begin{verbatim}
+#ifndef PRNG_H
+#define PRNG_H
+
+//definisco la variabile randtype. 
+//unsigned (solo 0 o var positive), long long -> 64bit di memoria.
+typedef unsigned long long int randtype;
+
+class prng{
+
+private:
+randtype a;
+randtype c;
+randtype x;
+
+public:
+prng(); //constructor
+~prng(); 
+
+randtype randInt(); //numero casuale
+double rand(double min=0., double max =1.); //numero casuale tra 0 e 1
+};
+
+#endif
+\end{verbatim}
+Per quanto detto prima l'operazione iterativa diventa meno complessa e viene implementata nel seguente modo.
+\begin{verbatim}
+#include "prng.h"
+#include <climits>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+
+//Constructor 
+
+prng::prng(){
+a = 6364136223846793005U;
+c = 1442695040888963407U;
+x = 1.;
+}
+
+
+prng::~prng(){}
+randtype prng::randInt(){
+
+x = (a * x + c);
+return x;
+}
+
+double prng::rand(double min, double max){
+
+return (double)(max-min) * ((double) randInt()) /
+((double) ULLONG_MAX ) + min;
+
+}
+\end{verbatim}
+
+L'oggetto \texttt{pnrg} è inizializzato con i fattori $a$ e $c$ inizializzati con la stessa strategia della funzione \texttt{rand()} di c++. \\
+Il metodo \texttt{randInt()} produce numeri casuali e la funzione \texttt{rand} produce numeri casuali nell'intervallo $[0,1]$
+
+
+
+
+
+\end{document}

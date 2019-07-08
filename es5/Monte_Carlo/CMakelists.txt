@@ -1,0 +1,21 @@
+cmake_minimum_required(VERSION 2.6)
+project (es5)
+
+# You need to tell CMake where to find the ROOT installation. This can be done in a number of ways:
+#   - ROOT built with classic configure/make use the provided $ROOTSYS/etc/cmake/FindROOT.cmake
+#   - ROOT built with CMake. Add in CMAKE_PREFIX_PATH the installation prefix for ROOT
+list(APPEND CMAKE_PREFIX_PATH $ENV{ROOTSYS})
+find_package(ROOT REQUIRED COMPONENTS RIO Net)
+include(${ROOT_USE_FILE})
+
+add_library(one one.cpp)
+target_link_libraries(one ${ROOT_LIBRARIES})
+
+add_library(function function.cpp)
+target_link_libraries(function ${ROOT_LIBRARIES})
+
+add_library(monte monte.cpp)
+target_link_libraries(monte ${ROOT_LIBRARIES} one function)
+
+add_executable(main main.cpp)
+target_link_libraries(main monte)

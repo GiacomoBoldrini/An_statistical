@@ -1,0 +1,4 @@
+/Users/boldrinicoder/Desktop/try4/pt_pl/build/CMakeFiles/rebuild_cache.dir
+/Users/boldrinicoder/Desktop/try4/pt_pl/build/CMakeFiles/edit_cache.dir
+/Users/boldrinicoder/Desktop/try4/pt_pl/build/CMakeFiles/main.dir
+/Users/boldrinicoder/Desktop/try4/pt_pl/build/CMakeFiles/monte_carlo.dir

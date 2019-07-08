@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es1/prng/prng.h
+
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es1/prng/un_xorshiro128p.cpp
+iostream
+-
+xorshiro.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es1/prng/xorshiro.h
+prng.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es1/prng/prng.h
+
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es1/prng/xorshiro.h
+prng.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es1/prng/prng.h
+
