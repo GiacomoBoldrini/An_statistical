@@ -13,8 +13,8 @@ class simulation{
         ~simulation();
         double diffraction_fun(double theta);
         double* diffraction_tc(double xmin,double xmax,double ymin,double ymax);
-
-        double* diffraction_smeared(double xmin, double xmax, int bins);
+        double* diffraction_smeared();
+        void set_smear(double sm){ sm_fact = sm;  } ;
 
     private:
         xorshiro uniform;

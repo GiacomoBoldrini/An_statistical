@@ -1,2 +1,2 @@
-/bin/ar qc libsimulation.a  CMakeFiles/simulation.dir/simulation.cpp.o
-/bin/ranlib libsimulation.a
+/Library/Developer/CommandLineTools/usr/bin/ar qc libsimulation.a  CMakeFiles/simulation.dir/simulation.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libsimulation.a

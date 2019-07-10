@@ -4,15 +4,17 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/prng/prng.cpp" "/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/build/prng/CMakeFiles/prng.dir/prng.cpp.o"
+  "/Users/boldrinicoder/uni/Analisi-Statistica/code/es6/prng/prng.cpp" "/Users/boldrinicoder/uni/Analisi-Statistica/code/es6/build/prng/CMakeFiles/prng.dir/prng.cpp.o"
   )
-set(CMAKE_CXX_COMPILER_ID "GNU")
+set(CMAKE_CXX_COMPILER_ID "Clang")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/home/wahid/Programs/RooUnfold/src"
+  "/Users/boldrinicoder/RooUnfold/src"
   "../prng"
-  "/var/local/roots/myroot/include"
+  "/Users/boldrinicoder/buildroot/include"
+  "/Users/boldrinicoder/RooUnfold/include"
+  "/usr/local/include"
   )
 
 # Targets to which this target links.

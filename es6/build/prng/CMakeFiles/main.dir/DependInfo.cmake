@@ -4,23 +4,25 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/prng/main.cpp" "/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/build/prng/CMakeFiles/main.dir/main.cpp.o"
+  "/Users/boldrinicoder/uni/Analisi-Statistica/code/es6/prng/main.cpp" "/Users/boldrinicoder/uni/Analisi-Statistica/code/es6/build/prng/CMakeFiles/main.dir/main.cpp.o"
   )
-set(CMAKE_CXX_COMPILER_ID "GNU")
+set(CMAKE_CXX_COMPILER_ID "Clang")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/home/wahid/Programs/RooUnfold/src"
+  "/Users/boldrinicoder/RooUnfold/src"
   "../prng"
-  "/var/local/roots/myroot/include"
+  "/Users/boldrinicoder/buildroot/include"
+  "/Users/boldrinicoder/RooUnfold/include"
+  "/usr/local/include"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/build/prng/CMakeFiles/prng.dir/DependInfo.cmake"
-  "/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/build/prng/CMakeFiles/xorshiro.dir/DependInfo.cmake"
-  "/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/build/prng/CMakeFiles/xorshiroGen.dir/DependInfo.cmake"
-  "/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/build/prng/CMakeFiles/simulation.dir/DependInfo.cmake"
+  "/Users/boldrinicoder/uni/Analisi-Statistica/code/es6/build/prng/CMakeFiles/prng.dir/DependInfo.cmake"
+  "/Users/boldrinicoder/uni/Analisi-Statistica/code/es6/build/prng/CMakeFiles/xorshiro.dir/DependInfo.cmake"
+  "/Users/boldrinicoder/uni/Analisi-Statistica/code/es6/build/prng/CMakeFiles/xorshiroGen.dir/DependInfo.cmake"
+  "/Users/boldrinicoder/uni/Analisi-Statistica/code/es6/build/prng/CMakeFiles/simulation.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

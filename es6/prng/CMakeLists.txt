@@ -8,10 +8,10 @@ list(APPEND CMAKE_PREFIX_PATH $ENV{ROOTSYS})
 find_package(ROOT REQUIRED COMPONENTS RIO Net)
 include(${ROOT_USE_FILE})
 
-#include_directories(/home/wahid/Programs/RooUnfold/include)
-#include_directories(/home/wahid/Programs/RooUnfold/src)
-#link_directories(/home/wahid/Programs/RooUnfold/)
-#find_package(RooUnfold REQUIRED) 
+include_directories(/Users/boldrinicoder/RooUnfold/include)
+include_directories(/Users/boldrinicoder/RooUnfold/src)
+link_directories(/Users/boldrinicoder/RooUnfold/)
+
 
 
 add_library(prng prng)

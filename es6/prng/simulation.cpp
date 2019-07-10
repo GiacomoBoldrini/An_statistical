@@ -26,18 +26,15 @@ simulation::simulation(int N, double sm_fact_n,double lambda_n,double diameter_n
 
 }
 
-simulation::~simulation(){
-    //delete clean;
-    //delete smeared;
-}
+simulation::~simulation(){}
 
 double simulation::diffraction_fun(double theta){
 
     double k = 2*M_PI/lambda;
     double alpha = k*diameter*sin(theta);
-    double J_x = gsl_sf_bessel_J1(alpha);
+    double J_x = 2*gsl_sf_bessel_J1(alpha);
 
-    return (1*(J_x)*alpha)*((J_x)*alpha);
+    return 1*((J_x)/alpha)*((J_x)/alpha);
 
 }
 
@@ -53,8 +50,6 @@ double* simulation::diffraction_tc(double xmin,double xmax,
         
 
             if(y < diffraction_fun(x)){
-                
-                //std::cout << "y: " << y << " diff(x)" << diffraction(M_PI*x/180,diameter,lambda) << std::endl;
                 clean[i] = x;
                 i++;
             }
@@ -62,15 +57,14 @@ double* simulation::diffraction_tc(double xmin,double xmax,
         return clean;
 }
 
-double* simulation::diffraction_smeared(double xmin,double xmax, int bins){
+double* simulation::diffraction_smeared(){
     
-    double std = sm_fact*(xmax-xmin)/bins;
     smeared = new double[N_ev];
     
         for(long int i = 0; i < N_ev; i++){
 
             double x = clean[i];
-            smeared[i] = x + dist.gauss_bm(0,std);
+            smeared[i] = x + dist.gauss_bm(0,sm_fact);
 
         }
             return smeared;

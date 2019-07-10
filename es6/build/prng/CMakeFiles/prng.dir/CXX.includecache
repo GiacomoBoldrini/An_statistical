@@ -6,9 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/prng/prng.cpp
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es6/prng/prng.cpp
 prng.h
-/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/prng/prng.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es6/prng/prng.h
 climits
 -
 stdio.h
@@ -18,5 +18,5 @@ stdlib.h
 time.h
 -
 
-/home/wahid/Wahid/University/analisi_statistica/esercizi/es6/prng/prng.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es6/prng/prng.h
 

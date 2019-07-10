@@ -1,2 +1,2 @@
-/bin/ar qc libxorshiroGen.a  CMakeFiles/xorshiroGen.dir/xorshiroGen.cpp.o
-/bin/ranlib libxorshiroGen.a
+/Library/Developer/CommandLineTools/usr/bin/ar qc libxorshiroGen.a  CMakeFiles/xorshiroGen.dir/xorshiroGen.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libxorshiroGen.a
