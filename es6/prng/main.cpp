@@ -18,6 +18,7 @@
 #include "RooUnfoldBayes.h"
 #include "RooUnfoldBinByBin.h"
 #include "RooUnfoldSvd.h"
+//#include "RooUnfoldIds.h"
 #include "simulation.h"
 #include <string>
 #include <sstream>
@@ -167,7 +168,10 @@ int main(int argc, char** argv){
     RooUnfoldBinByBin unfold_bbb(&response,Intensity_measured);
 
     std::cout<< "SVD" << std::endl;
-    RooUnfoldSvd unfold_svd(&response,Intensity_measured);
+    RooUnfoldSvd unfold_svd(&response,Intensity_measured, 20);
+
+    //std::cout<< "IDS" << std::endl;
+    //RooUnfoldIds unfold_ids(&response,Intensity_measured, 4);
     
     std::cout<< "------->UNFOLDING<-------" << std::endl;
     std::cout<< "------->Bayes<-------" << std::endl;
@@ -179,9 +183,13 @@ int main(int argc, char** argv){
     h_unfold_bbb->SetLineWidth(2);
     h_unfold_bbb->SetMarkerSize(2);
     std::cout<< "------->SVD<-------" << std::endl;
-    //TH1D* h_unfold_svd = (TH1D*)unfold_svd.Hreco();
-    //h_unfold_svd->SetLineWidth(2);
-    //h_unfold_svd->SetMarkerSize(7);
+    TH1D* h_unfold_svd = (TH1D*)unfold_svd.Hreco();
+    h_unfold_svd->SetLineWidth(2);
+    h_unfold_svd->SetMarkerSize(7);
+    //std::cout<< "------->IDS<-------" << std::endl;
+    //TH1D* h_unfold_ids = (TH1D*)unfold_ids.Hreco();
+    //h_unfold_ids->SetLineWidth(2);
+    //h_unfold_ids->SetMarkerSize(7);
     
 
 
@@ -355,33 +363,189 @@ int main(int argc, char** argv){
     c_bbb->Draw();
     c_bbb->SaveAs("./provaBBB.pdf");
 
-/* 
+
+    //-----------------------------------
+    //-------Plotting SVD----------------
+    //-----------------------------------
+
+
+    TLegend* leg3 = new TLegend(0.13,0.7,0.4,0.9);
+    Intensity_measured->SetLineColor(kRed);
+    Intensity_measured->SetLineWidth(1);
     h->SetLineColor(kBlue);
+    h->SetLineWidth(1);
+    h_unfold_svd->SetLineColor(kGreen);
+
+    leg3->AddEntry(h, "True-data");
+    leg3->AddEntry(Intensity_measured, "Smeared-data c = 0.95");
+    leg3->AddEntry(h_unfold_svd, "SVD unfold", "ple");
+    //leg1->AddEntry(h_unfold_bbb, "BinByBin unfold", "ple");
+    //leg1->AddEntry(h_unfold_svd, "SVD unfold");
+
+    TCanvas* c_svd = new TCanvas("c_svd", "c_svd",1000, 1000,1000, 1000);
+    // Upper histogram plot is pad1
+    //TPad* pad1 = new TPad("pad1", "pad1", 0, 0.28, 1, 1);
+    pad1->SetBottomMargin(0);  // joins upper and lower plot
+    pad1->SetRightMargin(0.04);
+    pad1->SetLeftMargin(0.13);
+    pad1->SetTickx(1);
+    pad1->SetTicky(1);
+    pad1->Draw();
+    // Lower ratio plot is pad2
+    c_svd->cd();  //returns to main canvas before defining pad2
+    //TPad* pad2 = new TPad("pad2", "pad2", 0, 0.0, 1, 0.28);
+    pad2->SetTopMargin(0); // joins upper and lower plot
+    pad2->SetRightMargin(0.04);
+    pad2->SetLeftMargin(0.13);
+    pad2->SetBottomMargin(0.13);
+    pad2->SetGridx();
+    pad2->SetGridy();
+    pad2->SetTickx(1);
+    pad2->SetTicky(1);
+    pad2->Draw();
+
+    c_svd->Update();
+    pad1->cd();
+
+    gStyle->SetOptStat(0);
     h->Draw("hist");
+    h->SetTitle("Unfolding result using SVD approach");
+    h->GetYaxis()->SetTitleSize(.04);
+    h->GetXaxis()->SetTitleSize(.04);
+    Intensity_measured->Draw("hist same");
+    h_unfold_svd->Draw("SAME");
+    leg3->Draw();
 
-    h_sm4->SetLineColor(kRed);
-    h_sm4->Draw("hist same");
+    TH1D* rateo_svd = createRatio(h, h_unfold_svd);
 
-    h_unfold->SetLineColor(kGreen);
-    h_unfold->Draw("SAME");
+    pad2->cd();
+    rateo_svd->Draw("hist");
+    TH1F* hratioerror_svd =(TH1F*) rateo_svd->DrawCopy("E2 same");
+    hratioerror_svd->SetFillStyle(3013);
+    hratioerror_svd->SetFillColor(13);
+    hratioerror_svd->SetMarkerStyle(1);
+    c_svd->cd();
+    c_svd->Update();
+    c_svd->Draw();
+    c_svd->SaveAs("./provaSVD.pdf");
 
-    h_unfold_bbb->SetLineColor(kPink);
-    //h_unfold_bbb->Draw("SAME");
 
-    //h_unfold_svd->SetLineColor(kOrange);
-    //h_unfold_svd->Draw("hist SAME");
-    //h_sm->Write("smeared");
+    /* 
 
-    leg1->Draw("SAME");
-    c2->Draw();
-    c2->SaveAs("./Unfolding.pdf");
+    //-----------------------------------
+    //-------Plotting IDS----------------
+    //-----------------------------------
+
+
+    TLegend* leg4 = new TLegend(0.13,0.7,0.4,0.9);
+    Intensity_measured->SetLineColor(kRed);
+    Intensity_measured->SetLineWidth(1);
+    h->SetLineColor(kBlue);
+    h->SetLineWidth(1);
+    h_unfold_ids->SetLineColor(kGreen);
+
+    leg4->AddEntry(h, "True-data");
+    leg4->AddEntry(Intensity_measured, "Smeared-data c = 0.95");
+    leg4->AddEntry(h_unfold_ids, "IDS unfold", "ple");
+    //leg1->AddEntry(h_unfold_bbb, "BinByBin unfold", "ple");
+    //leg1->AddEntry(h_unfold_svd, "SVD unfold");
+
+    TCanvas* c_ids = new TCanvas("c_ids", "c_ids",1000, 1000,1000, 1000);
+    // Upper histogram plot is pad1
+    //TPad* pad1 = new TPad("pad1", "pad1", 0, 0.28, 1, 1);
+    pad1->SetBottomMargin(0);  // joins upper and lower plot
+    pad1->SetRightMargin(0.04);
+    pad1->SetLeftMargin(0.13);
+    pad1->SetTickx(1);
+    pad1->SetTicky(1);
+    pad1->Draw();
+    // Lower ratio plot is pad2
+    c_ids->cd();  //returns to main canvas before defining pad2
+    //TPad* pad2 = new TPad("pad2", "pad2", 0, 0.0, 1, 0.28);
+    pad2->SetTopMargin(0); // joins upper and lower plot
+    pad2->SetRightMargin(0.04);
+    pad2->SetLeftMargin(0.13);
+    pad2->SetBottomMargin(0.13);
+    pad2->SetGridx();
+    pad2->SetGridy();
+    pad2->SetTickx(1);
+    pad2->SetTicky(1);
+    pad2->Draw();
+
+    c_ids->Update();
+    pad1->cd();
+
+    gStyle->SetOptStat(0);
+    h->Draw("hist");
+    h->SetTitle("Unfolding result using IDS approach");
+    h->GetYaxis()->SetTitleSize(.04);
+    h->GetXaxis()->SetTitleSize(.04);
+    Intensity_measured->Draw("hist same");
+    h_unfold_ids->Draw("SAME");
+    leg4->Draw();
+
+    TH1D* rateo_ids = createRatio(h, h_unfold_ids);
+
+    pad2->cd();
+    rateo_ids->Draw("hist");
+    TH1F* hratioerror_ids =(TH1F*) rateo_ids->DrawCopy("E2 same");
+    hratioerror_ids->SetFillStyle(3013);
+    hratioerror_ids->SetFillColor(13);
+    hratioerror_ids->SetMarkerStyle(1);
+    c_ids->cd();
+    c_ids->Update();
+    c_ids->Draw();
+    c_ids->SaveAs("./provaIDS.pdf");
 
 */
+
+    //--------------------------------
+    //-------PLOT COVARIANCE----------
+    //--------------------------------
+
+    //Bayes
+    TCanvas* c_cov_bayes = new TCanvas("c_c_b", "c_c_b",1000, 1000,1000, 1000);
+    unfold.Ereco().Draw("colz");
+    c_cov_bayes->Draw();
+    c_cov_bayes->SaveAs("./cov_bayes.pdf");
+
+    unfold.ErecoV().Draw("colz");
+    c_cov_bayes->Draw();
+    c_cov_bayes->SaveAs("./cov_bayes_V.pdf");
+
+    //Bin-to-Bin
+    TCanvas* c_cov_bbb = new TCanvas("c_c_bbb", "c_c_bbb",1000, 1000,1000, 1000);
+    unfold_bbb.Ereco().Draw("colz");
+    c_cov_bbb->Draw();
+    c_cov_bbb->SaveAs("./cov_bbb.pdf");
+
+    unfold_bbb.ErecoV().Draw("colz");
+    c_cov_bbb->Draw();
+    c_cov_bbb->SaveAs("./cov_bbb_V.pdf");
+
+    //SVD
+    TCanvas* c_cov_svd = new TCanvas("c_c_svd", "c_c_svd",1000, 1000,1000, 1000);
+    unfold_svd.Ereco().Draw("colz");
+    c_cov_svd->Draw();
+    c_cov_svd->SaveAs("./cov_svd.pdf");
+
+    unfold_svd.ErecoV().Draw("colz");
+    c_cov_svd->Draw();
+    c_cov_svd->SaveAs("./cov_svd_V.pdf");
+
+/* 
+    //IDS
+    TCanvas* c_cov_ids = new TCanvas("c_c_ids", "c_c_ids",1000, 1000,1000, 1000);
+    unfold_ids.Ereco().Draw("colz");
+    c_cov_ids->Draw();
+    c_cov_ids->SaveAs("./cov_ids.pdf");
+
+    unfold_ids.ErecoV().Draw("colz");
+    c_cov_ids->Draw();
+    c_cov_ids->SaveAs("./cov_ids_V.pdf");
+*/
+
     return 0;
-     
-
-     
-
 
 }
 
