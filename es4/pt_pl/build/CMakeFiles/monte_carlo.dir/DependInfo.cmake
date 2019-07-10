@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/boldrinicoder/Desktop/try4/pt_pl/monte_carlo.cpp" "/Users/boldrinicoder/Desktop/try4/pt_pl/build/CMakeFiles/monte_carlo.dir/monte_carlo.cpp.o"
+  "/Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl/monte_carlo.cpp" "/Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl/build/CMakeFiles/monte_carlo.dir/monte_carlo.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "Clang")
 

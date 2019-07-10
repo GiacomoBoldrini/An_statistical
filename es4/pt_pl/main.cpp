@@ -9,6 +9,7 @@
 #include "TF1.h"
 #include "TProfile.h"
 #include "TStyle.h"
+#include "TLegend.h"
 #include <cmath>
 
 struct mean_pt{
@@ -79,12 +80,30 @@ int main(){
     h2->GetZaxis()->SetTitleOffset(1.5);
     h2->SetTitle("P_T versus P_L distribution for N=100000 particles");
 
+    //Equal generation but with sine uniform
     for(int i = 0; i < N; i++){
         generate_mc sim(rand());
         generation result = sim.simulation();
+        h2->Fill(result.pl, result.pt);
+
+    }
+
+    TH2F* h3 = new TH2F("h3", "h3", 100, 0, 10, 100, 0, 10);
+    h3->GetXaxis()->SetTitle("P_L [GeV/c]");
+    h3->GetYaxis()->SetTitle("P_T [GeV/c]");
+    h3->GetYaxis()->SetTitleOffset(2);
+    h3->GetXaxis()->SetTitleOffset(2);
+    h3->GetZaxis()->SetTitle("Counts");
+    h3->GetZaxis()->SetTitleOffset(1.5);
+    h3->SetTitle("P_T versus P_L distribution for N=100000 particles generating uniform sine");
+
+
+    for(int i = 0; i < N; i++){
+        generate_mc sim(rand());
+        generation result = sim.simulation_sine();
         pt.push_back(result.pl);
         pl.push_back(result.pt);
-        h2->Fill(result.pl, result.pt);
+        h3->Fill(result.pl, result.pt);
 
     }
 
@@ -102,7 +121,7 @@ int main(){
     
     
     TGraphErrors* g = new TGraphErrors( 99, &pl_binned[0], &averaging_pt.pt[0], &pl_bins_err[0], &averaging_pt.std_err[0]);
-    g->SetTitle("<P_{T}> Graph in funcion of P_{L} for 10000 MC events");
+    g->SetTitle("<P_{T}> Graph in funcion of P_{L} for 100000 MC events");
     g->GetXaxis()->SetTitle("P_{L} [GeV/c]");
     g->GetYaxis()->SetTitle("<P_{T}> [GeV/c]");
     g->SetMarkerColor(4);
@@ -113,7 +132,7 @@ int main(){
     pt_m->GetXaxis()->SetTitle("P_{L} [GeV/c]");
     pt_m->GetXaxis()->SetTitleOffset(1.2);
     pt_m->GetYaxis()->SetTitle("<P_{T}> [GeV/c]");
-    pt_m->SetTitle("<P_{T}> Graph in funcion of P_{L} for 10000 mc events");
+    pt_m->SetTitle("<P_{T}> Graph in funcion of P_{L} for 100000 mc events");
 
     //TF1* analytical = new TF1("analytical", "((1-x*x)-x*TMath::ATan(sqrt((1/(x*x))-1)))/(-TMath::Log(x))", 0, 10);
     TF1* analytical = new TF1("analytical", "((1-x*x)-x*atan(sqrt(abs(1/(x*x)-1))))/-log(x)", 0, 10);
@@ -132,7 +151,26 @@ int main(){
     h2->Draw("lego");
     c->SaveAs("./gen_dist.png");
 
+    // Sine generation
+    TProfile *pt_m_s = h3->ProfileX("p_m_s", 0, 100);
+    pt_m_s->GetXaxis()->SetTitle("P_{L} [GeV/c]");
+    pt_m_s->GetXaxis()->SetTitleOffset(1.2);
+    pt_m_s->GetYaxis()->SetTitle("<P_{T}> [GeV/c]");
+    pt_m_s->SetTitle("<P_{T}> Graph in funcion of P_{L} for 100000 mc events uniform sine");
+    pt_m_s->SetLineColor(kRed);
+    pt_m->SetLineColor(kBlue);
 
+    TLegend* l = new TLegend(0.7, 0.75, 0.9, 0.9);
+    l->AddEntry(pt_m_s, "sin(#theta) ~ U[-1,1]");
+    l->AddEntry(pt_m, "#theta ~ U[0, 2#pi]");
+    pt_m->Draw("hist E");
+    pt_m_s->Draw("hist E same");
+
+    l->Draw();
+    c->SaveAs("./gen_dist_size.png");
+
+    h3->Draw("lego");
+    c->SaveAs("./dist_sine.png");
 
     return 0;
 }

@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/boldrinicoder/Desktop/try4/pt_pl/main.cpp" "/Users/boldrinicoder/Desktop/try4/pt_pl/build/CMakeFiles/main.dir/main.cpp.o"
+  "/Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl/main.cpp" "/Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl/build/CMakeFiles/main.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "Clang")
 
@@ -15,7 +15,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/Users/boldrinicoder/Desktop/try4/pt_pl/build/CMakeFiles/monte_carlo.dir/DependInfo.cmake"
+  "/Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl/build/CMakeFiles/monte_carlo.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

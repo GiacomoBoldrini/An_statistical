@@ -18,3 +18,20 @@ generation generate_mc::simulation(){
     return result;
 
 }
+
+generation generate_mc::simulation_sine(){
+
+    generation result;
+
+    TRandom3* gen_p = new TRandom3(seed); //generatore causale momento
+    TRandom3* gen_sin = new TRandom3(seed + rand()); //generatore causale angoli
+
+    double p = gen_p->Uniform(0,10);
+    double sine =  gen_sin->Uniform(-1,1);
+
+    result.pl = p*sqrt(1-sine*sine);
+    result.pt = abs(p*sine);
+
+    return result;
+
+}

@@ -6,16 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/Users/boldrinicoder/Desktop/try4/pt_pl/monte_carlo.cpp
-monte_carlo.h
-/Users/boldrinicoder/Desktop/try4/pt_pl/monte_carlo.h
-TRandom3.h
-/Users/boldrinicoder/Desktop/try4/pt_pl/TRandom3.h
-cmath
--
-
-/Users/boldrinicoder/Desktop/try4/pt_pl/monte_carlo.h
-
 /Users/boldrinicoder/buildroot/include/DllImport.h
 
 /Users/boldrinicoder/buildroot/include/Math/TRandomEngine.h
@@ -261,4 +251,14 @@ unistd.h
 -
 sys/types.h
 -
+
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl/monte_carlo.cpp
+monte_carlo.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl/monte_carlo.h
+TRandom3.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl/TRandom3.h
+cmath
+-
+
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl/monte_carlo.h
 

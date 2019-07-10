@@ -14,6 +14,7 @@ class generate_mc{
         generate_mc(int s){ seed = s; };
         ~generate_mc(){};
         generation simulation();
+        generation simulation_sine();
 
 };
 #endif //MONTE_CARLO_H

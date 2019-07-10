@@ -48,10 +48,10 @@ RM = /usr/local/Cellar/cmake/3.13.1/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/boldrinicoder/Desktop/try4/pt_pl
+CMAKE_SOURCE_DIR = /Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/boldrinicoder/Desktop/try4/pt_pl/build
+CMAKE_BINARY_DIR = /Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/boldrinicoder/Desktop/try4/pt_pl/build/CMakeFiles /Users/boldrinicoder/Desktop/try4/pt_pl/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl/build/CMakeFiles /Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/boldrinicoder/Desktop/try4/pt_pl/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

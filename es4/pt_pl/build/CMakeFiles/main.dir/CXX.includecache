@@ -6,34 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/Users/boldrinicoder/Desktop/try4/pt_pl/main.cpp
-monte_carlo.h
-/Users/boldrinicoder/Desktop/try4/pt_pl/monte_carlo.h
-ctime
--
-iostream
--
-TCanvas.h
-/Users/boldrinicoder/Desktop/try4/pt_pl/TCanvas.h
-TGraphErrors.h
-/Users/boldrinicoder/Desktop/try4/pt_pl/TGraphErrors.h
-TGraph.h
-/Users/boldrinicoder/Desktop/try4/pt_pl/TGraph.h
-TH2F.h
-/Users/boldrinicoder/Desktop/try4/pt_pl/TH2F.h
-TH1F.h
-/Users/boldrinicoder/Desktop/try4/pt_pl/TH1F.h
-TF1.h
-/Users/boldrinicoder/Desktop/try4/pt_pl/TF1.h
-TProfile.h
-/Users/boldrinicoder/Desktop/try4/pt_pl/TProfile.h
-TStyle.h
-/Users/boldrinicoder/Desktop/try4/pt_pl/TStyle.h
-cmath
--
-
-/Users/boldrinicoder/Desktop/try4/pt_pl/monte_carlo.h
-
 /Users/boldrinicoder/buildroot/include/Buttons.h
 
 /Users/boldrinicoder/buildroot/include/DllImport.h
@@ -277,6 +249,20 @@ TObject.h
 /Users/boldrinicoder/buildroot/include/TObject.h
 string.h
 -
+
+/Users/boldrinicoder/buildroot/include/TBox.h
+TObject.h
+/Users/boldrinicoder/buildroot/include/TObject.h
+TAttLine.h
+/Users/boldrinicoder/buildroot/include/TAttLine.h
+TAttFill.h
+/Users/boldrinicoder/buildroot/include/TAttFill.h
+TAttBBox2D.h
+/Users/boldrinicoder/buildroot/include/TAttBBox2D.h
+TPoint.h
+/Users/boldrinicoder/buildroot/include/TPoint.h
+GuiTypes.h
+/Users/boldrinicoder/buildroot/include/GuiTypes.h
 
 /Users/boldrinicoder/buildroot/include/TBuffer.h
 TObject.h
@@ -548,6 +534,12 @@ typeinfo
 Rtypes.h
 /Users/boldrinicoder/buildroot/include/Rtypes.h
 
+/Users/boldrinicoder/buildroot/include/TLegend.h
+TPave.h
+/Users/boldrinicoder/buildroot/include/TPave.h
+TAttText.h
+/Users/boldrinicoder/buildroot/include/TAttText.h
+
 /Users/boldrinicoder/buildroot/include/TList.h
 TSeqCollection.h
 /Users/boldrinicoder/buildroot/include/TSeqCollection.h
@@ -643,6 +635,12 @@ TPoint.h
 /Users/boldrinicoder/buildroot/include/TPoint.h
 GuiTypes.h
 /Users/boldrinicoder/buildroot/include/GuiTypes.h
+
+/Users/boldrinicoder/buildroot/include/TPave.h
+TBox.h
+/Users/boldrinicoder/buildroot/include/TBox.h
+TString.h
+/Users/boldrinicoder/buildroot/include/TString.h
 
 /Users/boldrinicoder/buildroot/include/TPoint.h
 Rtypes.h
@@ -1889,4 +1887,34 @@ unistd.h
 -
 sys/types.h
 -
+
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl/main.cpp
+monte_carlo.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl/monte_carlo.h
+ctime
+-
+iostream
+-
+TCanvas.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl/TCanvas.h
+TGraphErrors.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl/TGraphErrors.h
+TGraph.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl/TGraph.h
+TH2F.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl/TH2F.h
+TH1F.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl/TH1F.h
+TF1.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl/TF1.h
+TProfile.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl/TProfile.h
+TStyle.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl/TStyle.h
+TLegend.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl/TLegend.h
+cmath
+-
+
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es4/pt_pl/monte_carlo.h
 
