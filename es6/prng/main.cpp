@@ -26,6 +26,7 @@
 TH1D* createRatio(TH1D* h1, TH1D* h2, const char* label="ratio"){
     TH1D* h3 = (TH1D*) h1->Clone("h3");
     h3->SetMarkerStyle(21);
+    h3->SetMarkerSize(1);
     h3->SetMarkerColor(kBlack);
     h3->SetLineColor(kBlack);
     h3->SetTitle("");
@@ -144,19 +145,29 @@ int main(int argc, char** argv){
 
     RooUnfoldResponse response(bins,xmin,xmax); //Unfolding
 
+    TH1D* Intensity_measured = new TH1D("Intensity Measured", "Intensity Measured", bins, xmin, xmax);
+
+    experiment.set_smear(0.95*(xmax - xmin)/bins);
+    double* smeared_to_response = experiment.diffraction_smeared();
+    double* smeared_to_unfold = experiment.diffraction_smeared();
+
     for(int i = 0; i < N; i++){
-        response.Fill(smeared4[i],clean[i]);
+
+        Intensity_measured->Fill(smeared_to_unfold[i]);
+        response.Fill(smeared_to_response[i],clean[i]);
     }
+
+    Intensity_measured->Scale(1./m);
 
     //last par, iterations
     std::cout<< "Bayes" << std::endl;
-    RooUnfoldBayes unfold(&response, h_sm4, 4);
+    RooUnfoldBayes unfold(&response, Intensity_measured, 4);
 
     std::cout<< "BinbyBin" << std::endl;
-    RooUnfoldBinByBin unfold_bbb(&response,h_sm4);
+    RooUnfoldBinByBin unfold_bbb(&response,Intensity_measured);
 
     std::cout<< "SVD" << std::endl;
-    RooUnfoldSvd unfold_svd(&response,h_sm4);
+    RooUnfoldSvd unfold_svd(&response,Intensity_measured);
     
     std::cout<< "------->UNFOLDING<-------" << std::endl;
     std::cout<< "------->Bayes<-------" << std::endl;
@@ -219,14 +230,14 @@ int main(int argc, char** argv){
 
     //TCanvas* c2 = new TCanvas ("c2", "c2", 1000,1000,1000,800);
     TLegend* leg1 = new TLegend(0.13,0.7,0.4,0.9);
-    h_sm4->SetLineColor(kRed);
-    h_sm4->SetLineWidth(2);
+    Intensity_measured->SetLineColor(kRed);
+    Intensity_measured->SetLineWidth(1);
     h->SetLineColor(kBlue);
-    h->SetLineWidth(2);
+    h->SetLineWidth(1);
     h_unfold->SetLineColor(kGreen);
 
     leg1->AddEntry(h, "True-data");
-    leg1->AddEntry(h_sm4, "Smeared-data c = 0.95");
+    leg1->AddEntry(Intensity_measured, "Smeared-data c = 0.95");
     leg1->AddEntry(h_unfold, "Bayes unfold", "ple");
     //leg1->AddEntry(h_unfold_bbb, "BinByBin unfold", "ple");
     //leg1->AddEntry(h_unfold_svd, "SVD unfold");
@@ -256,12 +267,12 @@ int main(int argc, char** argv){
     c_bayes->Update();
     pad1->cd();
 
-    gStyle->SetOptStat(0000);
+    gStyle->SetOptStat(0);
     h->Draw("hist");
     h->SetTitle("Unfolding result using Bayesian approach");
     h->GetYaxis()->SetTitleSize(.04);
     h->GetXaxis()->SetTitleSize(.04);
-    h_sm4->Draw("hist same");
+    Intensity_measured->Draw("hist same");
     h_unfold->Draw("SAME");
     leg1->Draw();
 
@@ -269,10 +280,81 @@ int main(int argc, char** argv){
 
     pad2->cd();
     rateo->Draw("hist");
+    TH1F* hratioerror =(TH1F*) rateo->DrawCopy("E2 same");
+    hratioerror->SetFillStyle(3013);
+    hratioerror->SetFillColor(13);
+    hratioerror->SetMarkerStyle(1);
     c_bayes->cd();
     c_bayes->Update();
     c_bayes->Draw();
     c_bayes->SaveAs("./provaBayes.pdf");
+
+
+
+    //---------------------------------
+    //---------Unfolding BinbyBin------
+    //---------------------------------
+
+    TLegend* leg2 = new TLegend(0.13,0.7,0.4,0.9);
+    Intensity_measured->SetLineColor(kRed);
+    Intensity_measured->SetLineWidth(1);
+    h->SetLineColor(kBlue);
+    h->SetLineWidth(1);
+    h_unfold_bbb->SetLineColor(kGreen);
+
+    leg2->AddEntry(h, "True-data");
+    leg2->AddEntry(Intensity_measured, "Smeared-data c = 0.95");
+    leg2->AddEntry(h_unfold_bbb, "Bin-by_Bin unfold", "ple");
+    //leg1->AddEntry(h_unfold_bbb, "BinByBin unfold", "ple");
+    //leg1->AddEntry(h_unfold_svd, "SVD unfold");
+
+    TCanvas* c_bbb = new TCanvas("c_bbb", "c_bbb",1000, 1000,1000, 1000);
+    // Upper histogram plot is pad1
+    //TPad* pad1 = new TPad("pad1", "pad1", 0, 0.28, 1, 1);
+    pad1->SetBottomMargin(0);  // joins upper and lower plot
+    pad1->SetRightMargin(0.04);
+    pad1->SetLeftMargin(0.13);
+    pad1->SetTickx(1);
+    pad1->SetTicky(1);
+    pad1->Draw();
+    // Lower ratio plot is pad2
+    c_bbb->cd();  //returns to main canvas before defining pad2
+    //TPad* pad2 = new TPad("pad2", "pad2", 0, 0.0, 1, 0.28);
+    pad2->SetTopMargin(0); // joins upper and lower plot
+    pad2->SetRightMargin(0.04);
+    pad2->SetLeftMargin(0.13);
+    pad2->SetBottomMargin(0.13);
+    pad2->SetGridx();
+    pad2->SetGridy();
+    pad2->SetTickx(1);
+    pad2->SetTicky(1);
+    pad2->Draw();
+
+    c_bbb->Update();
+    pad1->cd();
+
+    gStyle->SetOptStat(0);
+    h->Draw("hist");
+    h->SetTitle("Unfolding result using Bin-by-Bin approach");
+    h->GetYaxis()->SetTitleSize(.04);
+    h->GetXaxis()->SetTitleSize(.04);
+    Intensity_measured->Draw("hist same");
+    h_unfold_bbb->Draw("SAME");
+    leg2->Draw();
+
+    TH1D* rateo_b = createRatio(h, h_unfold_bbb);
+
+    pad2->cd();
+    rateo_b->Draw("hist");
+    TH1F* hratioerror_b =(TH1F*) rateo_b->DrawCopy("E2 same");
+    hratioerror_b->SetFillStyle(3013);
+    hratioerror_b->SetFillColor(13);
+    hratioerror_b->SetMarkerStyle(1);
+    c_bbb->cd();
+    c_bbb->Update();
+    c_bbb->Draw();
+    c_bbb->SaveAs("./provaBBB.pdf");
+
 /* 
     h->SetLineColor(kBlue);
     h->Draw("hist");
