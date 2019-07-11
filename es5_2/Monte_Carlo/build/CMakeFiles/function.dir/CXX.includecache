@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es5_2/Monte_Carlo/function.cpp
+function.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es5_2/Monte_Carlo/function.h
+iostream
+-
+stdlib.h
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es5_2/Monte_Carlo/stdlib.h
+cmath
+-
+
+/Users/boldrinicoder/uni/Analisi-Statistica/code/es5_2/Monte_Carlo/function.h
+vector
+-
+

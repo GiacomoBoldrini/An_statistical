@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libone.a  CMakeFiles/one.dir/one.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libone.a
