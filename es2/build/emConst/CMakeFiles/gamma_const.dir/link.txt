@@ -1,0 +1,2 @@
+/bin/ar qc libgamma_const.a  CMakeFiles/gamma_const.dir/gamma_const.cpp.o
+/bin/ranlib libgamma_const.a

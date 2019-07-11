@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/wahid/Wahid/University/analisi_statistica/esercizi/es2/emConst/gamma_const.cpp
+sum_alg.h
+/home/wahid/Wahid/University/analisi_statistica/esercizi/es2/emConst/sum_alg.h
+gamma_const.h
+/home/wahid/Wahid/University/analisi_statistica/esercizi/es2/emConst/gamma_const.h
+cmath
+-
+iostream
+-
+math.h
+-
+
+/home/wahid/Wahid/University/analisi_statistica/esercizi/es2/emConst/gamma_const.h
+
+/home/wahid/Wahid/University/analisi_statistica/esercizi/es2/emConst/sum_alg.h
+iostream
+-
+cmath
+-
+numeric
+-
+limits
+-
+iomanip
+-
+fstream
+-
+gsl/gsl_math.h
+-
+
