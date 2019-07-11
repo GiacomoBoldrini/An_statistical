@@ -1,11 +1,15 @@
+//c++ compute_and.cpp `root-config --libs --glibs --cflags` -o andamento
+
 #include <iostream>
 #include "TH1F.h"
 #include "TGraphErrors.h"
 #include "TCanvas.h"
 #include "TRandom3.h"
+#include "TRandomGen.h"
 #include "TLine.h"
 #include "TF1.h"
 #include "TLegend.h"
+#include "xorshiro.h"
 
 int main(){
 
@@ -14,14 +18,15 @@ int main(){
     std::vector<double> deviazione;
     std::vector<double> error;
     std::vector<double> sam;
-
+    
+    xorshiro gen;
+    
     for(int i = 0; i < 50; i++){
-        TRandom3* gen = new TRandom3();
 
         double S_n = 0;
         double Error = 0;
         for(int j = 0; j < samples; j++){
-            double x = gen->Uniform(0,1);
+            double x = gen.rand(0,1);
             S_n += exp(x);
             Error += pow(exp(x), 2);
         }
@@ -90,14 +95,14 @@ int main(){
     
     c->Update();
     c->Draw();
-    c->SaveAs("Error_trendtr.png");
+    c->SaveAs("./Error_trendtr.png");
 
     TCanvas*c1 = new TCanvas("c1", "c1", 1000,1000,1000,800);
     g->Draw("AP");
     real_val->Draw();
     legend1->Draw();
     c1->Draw();
-    c1->SaveAs("Estimator_trendtr.png");
+    c1->SaveAs("./Estimator_trendtr.png");
 
 
 
