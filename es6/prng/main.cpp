@@ -77,8 +77,10 @@ int main(int argc, char** argv){
     }
 
     simulation experiment(N,std,lambda,diameter);
+    simulation experiment_dummy(N,0.1,lambda,diameter);
 
     double* clean = experiment.diffraction_tc(xmin,xmax,ymin,ymax);
+
 
     TH1D* h = new TH1D("Clean I(#theta)","Clean I(#theta)",bins,-M_PI/2,M_PI/2);
     h->SetTitle("I(#theta) Airy pattern");
@@ -97,6 +99,7 @@ int main(int argc, char** argv){
     h->Scale(1./m);
 
     double* smeared = experiment.diffraction_smeared(); 
+
 
     
     TH1D* h_sm = new TH1D("histo_sm","histo_sm",bins,-M_PI/2,M_PI/2);
@@ -182,10 +185,10 @@ int main(int argc, char** argv){
     TH1D* h_unfold_bbb = (TH1D*)unfold_bbb.Hreco();
     h_unfold_bbb->SetLineWidth(2);
     h_unfold_bbb->SetMarkerSize(2);
-    std::cout<< "------->SVD<-------" << std::endl;
-    TH1D* h_unfold_svd = (TH1D*)unfold_svd.Hreco();
-    h_unfold_svd->SetLineWidth(2);
-    h_unfold_svd->SetMarkerSize(7);
+    //std::cout<< "------->SVD<-------" << std::endl;
+    //TH1D* h_unfold_svd = (TH1D*)unfold_svd.Hreco();
+    //h_unfold_svd->SetLineWidth(2);
+    //h_unfold_svd->SetMarkerSize(7);
     //std::cout<< "------->IDS<-------" << std::endl;
     //TH1D* h_unfold_ids = (TH1D*)unfold_ids.Hreco();
     //h_unfold_ids->SetLineWidth(2);
@@ -363,7 +366,7 @@ int main(int argc, char** argv){
     c_bbb->Draw();
     c_bbb->SaveAs("./provaBBB.pdf");
 
-
+/* 
     //-----------------------------------
     //-------Plotting SVD----------------
     //-----------------------------------
@@ -430,7 +433,7 @@ int main(int argc, char** argv){
     c_svd->SaveAs("./provaSVD.pdf");
 
 
-    /* 
+ 
 
     //-----------------------------------
     //-------Plotting IDS----------------
@@ -522,7 +525,7 @@ int main(int argc, char** argv){
     unfold_bbb.ErecoV().Draw("colz");
     c_cov_bbb->Draw();
     c_cov_bbb->SaveAs("./cov_bbb_V.pdf");
-
+/* 
     //SVD
     TCanvas* c_cov_svd = new TCanvas("c_c_svd", "c_c_svd",1000, 1000,1000, 1000);
     unfold_svd.Ereco().Draw("colz");
@@ -533,7 +536,7 @@ int main(int argc, char** argv){
     c_cov_svd->Draw();
     c_cov_svd->SaveAs("./cov_svd_V.pdf");
 
-/* 
+
     //IDS
     TCanvas* c_cov_ids = new TCanvas("c_c_ids", "c_c_ids",1000, 1000,1000, 1000);
     unfold_ids.Ereco().Draw("colz");
@@ -545,7 +548,195 @@ int main(int argc, char** argv){
     c_cov_ids->SaveAs("./cov_ids_V.pdf");
 */
 
-    return 0;
+    //------------------------------
+    //------Hypervariation of c-----
+    //------------------------------
+
+
+    RooUnfoldResponse response1(bins,xmin,xmax); //Unfolding
+    RooUnfoldResponse response2(bins,xmin,xmax); //Unfolding
+    RooUnfoldResponse response3(bins,xmin,xmax); //Unfolding
+
+    TH1D* Intensity_measured1 = new TH1D("Intensity Measured1", "Intensity Measured1", bins, xmin, xmax);
+    TH1D* Intensity_measured2 = new TH1D("Intensity Measured2", "Intensity Measured2", bins, xmin, xmax);
+    TH1D* Intensity_measured3 = new TH1D("Intensity Measured3", "Intensity Measured3", bins, xmin, xmax);
+
+    double* clean_dummy = experiment_dummy.diffraction_tc(xmin,xmax,ymin,ymax);
+    double* smeared_conf = experiment_dummy.diffraction_smeared();
+
+    //-------0.1------------
+    experiment.set_smear(0.1);
+    double* smeared_to_response1 = experiment.diffraction_smeared();
+    //double* smeared_to_unfold1 = experiment.diffraction_smeared();
+
+    for(int i = 0; i < N; i++){
+
+        Intensity_measured1->Fill(smeared_conf[i]);
+        response1.Fill(smeared_to_response1[i],clean[i]);
+    }
+
+    Intensity_measured1->Scale(1./m);
+
+    std::cout<< "Bayes" << std::endl;
+    RooUnfoldBayes unfold1(&response1, Intensity_measured1, 4);
+
+    //-------0.3------------
+    experiment.set_smear(0.3);
+    experiment_dummy.set_smear(0.3);
+    double* smeared_to_response2 = experiment.diffraction_smeared();
+    //double* smeared_to_unfold2 = experiment.diffraction_smeared();
+    double* smeared_to_unfold2 = experiment_dummy.diffraction_smeared();
+
+    for(int i = 0; i < N; i++){
+
+        Intensity_measured2->Fill(smeared_to_unfold2[i]);
+        response2.Fill(smeared_to_response2[i],clean[i]);
+    }
+
+    Intensity_measured2->Scale(1./m);
+
+    std::cout<< "Bayes" << std::endl;
+    RooUnfoldBayes unfold2(&response2, Intensity_measured2, 4);
+
+
+    //-------0.5------------
+    experiment.set_smear(0.5);
+    experiment_dummy.set_smear(0.5);
+    double* smeared_to_response3 = experiment.diffraction_smeared();
+    //double* smeared_to_unfold3 = experiment.diffraction_smeared();
+    double* smeared_to_unfold3 = experiment_dummy.diffraction_smeared();
+
+    for(int i = 0; i < N; i++){
+
+        Intensity_measured3->Fill(smeared_to_unfold3[i]);
+        response3.Fill(smeared_to_response3[i],clean[i]);
+    }
+
+    Intensity_measured3->Scale(1./m);
+
+    std::cout<< "Bayes" << std::endl;
+    RooUnfoldBayes unfold3(&response3, Intensity_measured3, 4);
+
+
+    //---Unfolding------------
+
+    std::cout << "HyperUnfolding " << std::endl;
+
+    TH1D* h_unfold1 =(TH1D*)unfold1.Hreco();
+    h_unfold1->SetLineWidth(2);
+    h_unfold1->SetMarkerSize(2);
+
+    TH1D* h_unfold2 =(TH1D*)unfold2.Hreco();
+    h_unfold2->SetLineWidth(2);
+    h_unfold2->SetMarkerSize(2);
+
+    TH1D* h_unfold3 =(TH1D*)unfold3.Hreco();
+    h_unfold3->SetLineWidth(2);
+    h_unfold3->SetMarkerSize(2);
+
+
+    //------Plotting--------------
+
+    //TCanvas* c2 = new TCanvas ("c2", "c2", 1000,1000,1000,800);
+    TLegend* leg_hype = new TLegend(0.13,0.7,0.4,0.9);
+    Intensity_measured1->SetLineColor(kRed);
+    Intensity_measured1->SetLineWidth(1);
+    Intensity_measured2->SetLineColor(kBlack);
+    Intensity_measured2->SetLineWidth(1);
+    Intensity_measured3->SetLineColor(kOrange);
+    Intensity_measured3->SetLineWidth(1);
+    h->SetLineColor(kBlue);
+    h->SetLineWidth(1);
+    h_unfold1->SetLineColor(kGreen);
+    h_unfold2->SetLineColor(kRed);
+    h_unfold3->SetLineColor(kOrange);
+
+    leg_hype->AddEntry(h, "True-data");
+    leg_hype->AddEntry(h_unfold1, "Recontruction #sigma = 0.1", "ple");
+    leg_hype->AddEntry(h_unfold2, "Recontruction #sigma = 0.3", "ple");
+    leg_hype->AddEntry(h_unfold3, "Recontruction #sigma = 0.5", "ple");
+
+    //---------------------------------------------------
+
+    TCanvas* ciccio = new TCanvas("ciccio", "ciccio",1000, 1000,1000, 1000);
+    // Upper histogram plot is pad1
+    TPad* pad11 = new TPad("pad11", "pad11", 0, 0.28, 1, 1);
+    pad11->SetBottomMargin(0);  // joins upper and lower plot
+    pad11->SetRightMargin(0.04);
+    pad11->SetLeftMargin(0.13);
+    pad11->SetTickx(1);
+    pad11->SetTicky(1);
+    pad11->Draw();
+    // Lower ratio plot is pad2
+    ciccio->cd();  //returns to main canvas before defining pad2
+    TPad* pad22 = new TPad("pad22", "pad22", 0, 0.0, 1, 0.28);
+    pad22->SetTopMargin(0); // joins upper and lower plot
+    pad22->SetRightMargin(0.04);
+    pad22->SetLeftMargin(0.13);
+    pad22->SetBottomMargin(0.13);
+    pad22->SetGridx();
+    pad22->SetGridy();
+    pad22->SetTickx(1);
+    pad22->SetTicky(1);
+    pad22->Draw();
+
+    ciccio->Update();
+    pad11->cd();
+
+    gStyle->SetOptStat(0);
+    
+    h->Draw("hist");
+    h->SetTitle("Unfolding result #sigma = {0.1, 0.3, 0.5}");
+    h->GetYaxis()->SetTitleSize(.04);
+    h->GetXaxis()->SetTitleSize(.04);
+    h_unfold1->Draw("SAME");
+    h_unfold2->Draw("SAME");
+    h_unfold3->Draw("SAME");
+    leg_hype->Draw();
+
+    TH1D* rateo1 = createRatio(h, h_unfold1);
+    rateo1->SetLineColor(kGreen);
+    TH1D* rateo2 = createRatio(h, h_unfold2);
+    rateo2->SetLineColor(kRed);
+    TH1D* rateo3 = createRatio(h, h_unfold3);
+    rateo3->SetLineColor(kOrange);
+
+    pad22->cd();
+    rateo1->Draw("hist");
+    rateo2->Draw("hist same");
+    rateo3->Draw("hist same");
+
+    ciccio->cd();
+    ciccio->Update();
+    ciccio->Draw();
+    ciccio->SaveAs("./p.pdf");
+
+//--------------------------------------
+
+   Intensity_measured1->SetLineColor(kGreen);
+   Intensity_measured2->SetLineColor(kRed);
+   Intensity_measured3->SetLineColor(kOrange);
+   TCanvas* miao = new TCanvas("m","m",1000, 1000,1000, 800);
+   //gStyle->SetOptStat(0000);
+   TLegend* legg = new TLegend(0.1,0.7,0.4,0.9);
+
+   legg->AddEntry(h, "Clean-data", "ple");
+   legg->AddEntry(Intensity_measured1, "#sigma = 0.1");
+   legg->AddEntry(Intensity_measured2, "#sigma = 0.3");
+   legg->AddEntry(Intensity_measured3, "#sigma = 0.5");
+
+   //Saving the results
+   h->Draw("hist");
+   Intensity_measured1->Draw("hist same");
+   Intensity_measured2->Draw("hist same");
+   Intensity_measured3->Draw("hist same");
+
+   legg->Draw("SAME");
+   miao->Draw("");
+
+   miao->SaveAs("./smeared_hyp.pdf");
+
+   return 0;
 
 }
 

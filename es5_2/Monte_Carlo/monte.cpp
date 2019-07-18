@@ -346,7 +346,7 @@ void monte_carlo::run_importance_par_simu_2(){
     
 
     for(int i=0; i<events; i++){
-
+        double integral_importance = (pow(2, 2.5)-1)/2.5;
         std::vector<double> para;
 
         for(int j =0; j < measures; j++){
